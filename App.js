@@ -1,20 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import Root from './components/Root';
+import SaviorContextProvider from './contexts/SaviorContext';
+import { SafeAreaProvider, initialWindowMetrics } from "react-native-safe-area-context";
+import css from './styles';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { ThemeProvider, createTheme } from '@rneui/themed';
+import { preventAutoHideAsync, hideAsync } from "expo-splash-screen"
 
+
+// const theme = createTheme({
+//   lightColors: {},
+//   mode: "dark",
+//   darkColors: {
+//     primary: css.black,
+//     secondary: css.secondary,
+//     background: css.primary,
+//     white: css.black,
+//     black: css.secondary,
+//     searchBg: css.highlight
+//   },
+// })
+
+// preventAutoHideAsync();
+// setTimeout(hideAsync, 3000);
 export default function App() {
+  
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+      {/* <ThemeProvider theme={theme}> */}
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <SaviorContextProvider>
+            <Root />
+          </SaviorContextProvider>
+        </GestureHandlerRootView>
+      {/* </ThemeProvider> */}
+    </SafeAreaProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
