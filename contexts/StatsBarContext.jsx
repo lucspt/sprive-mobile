@@ -66,13 +66,14 @@ export default function StatsBarContextProvider({ children }) {
     if (!isObjectEmpty(savior) && !savior.spriving) {
       async function getTimesLogged() {
         const res = await fetchData(
-          `saviors/times-logged?since_date=${pledgeFrequencyToDate("day")}`
+          `saviors/times-logged?since_date=${emissionsPeriodToDate("day").toISOString()}`
         );
         setTimesLogged(res.content);
       }
       getTimesLogged();
-    }
-  }, [savior.spriving]);
+    };
+
+  }, [savior?.spriving]);
 
   useEffect(() => {
     return () => {

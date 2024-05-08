@@ -23,6 +23,7 @@ async function getStars(
   const res = await fetchData(
     `saviors/stars?limit=${RESULTS_PER_PAGE}&skip=${skip}`
   );
+  console.log(res, "ers")
   const { content } = res;
   setState(content.starred);
   setKeepFetchingPages(content.has_more);
@@ -39,6 +40,7 @@ const Starred = memo(function Starred({ navigation }) {
   const [ scrollRefreshing, setScrollRefreshing ] = useState(false);
   const [ keepFetchingPages, setKeepFetchingPages ] = useState(true);
 
+  console.log(starredProducts);
   useEffect(() => {
     if (isLoggedIn && keepFetchingPages) {
         getStars(
@@ -58,6 +60,7 @@ const Starred = memo(function Starred({ navigation }) {
       name={item.name}
       productId={item.resource_id}
       co2e={item.co2e}
+      image={item.image}
     />
   ))
 

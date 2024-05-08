@@ -11,12 +11,13 @@ import { fetchData } from "../../utils";
 
 const { secondary } = css
 export default function Pledge({ navigation }) {
-  const { 
+  let { 
     savior: { current_pledge: currentPledge }, 
     setSavior 
   } = useContext(SaviorContext);
+  currentPledge = currentPledge || {};
   const [ pledge, setPledge ] = useState({
-    ...currentPledge, co2e: currentPledge.co2e.toString()
+    ...currentPledge, co2e: currentPledge.co2e?.toString()
   });
   const co2eRef = useRef();
   const [ highlightPicker, setHighlightPicker ] = useState(null);

@@ -12,14 +12,11 @@ export default function RecentLog({
   rating,
   co2e,
   productId,
-  dateFont,
-  date,
-  ratingFont,
   navigate,
   width,
   fontSize,
  }) {
-
+  
   return (
     <View style={{ width }}>
     <Button 
@@ -28,7 +25,7 @@ export default function RecentLog({
       onPress={() => navigate("product", {productId})}
     >
       <Image
-        source="https://static.ewg.org/skindeep_images/8236/823601.jpg"
+        source={image}
         style={styles.image}
         alt={`a picture of ${name}`}
       />

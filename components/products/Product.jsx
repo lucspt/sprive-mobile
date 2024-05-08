@@ -137,7 +137,7 @@ const Product = memo(function Product({ route, navigation }) {
           <View style={styles.summary}>
             <Image
 
-              source="https://static.ewg.org/skindeep_images/8236/823601.jpg"
+              source={product.image}
               style={styles.image}
               alt={`a picture of ${product.name}`}
             />

@@ -19,8 +19,6 @@ const ProductRow = memo(function ProductRow({
   containerStyle,
   created_at=null,
  }) {
-
-  const _co2e = formatCO2e(co2e).join(" ");
   
   return (
       <Button
@@ -30,7 +28,7 @@ const ProductRow = memo(function ProductRow({
         onPress={() => navigate("product", { productId })}
         >
         <Image
-          source="https://static.ewg.org/skindeep_images/8236/823601.jpg"
+          source={image}
           style={styles.image}
           alt={`a picture of ${name}`}
         />
@@ -51,7 +49,7 @@ const ProductRow = memo(function ProductRow({
             )}
             <Rating rating={rating || "B"} />
             </View>
-            <Text style={styles.co2e}>{_co2e}</Text>
+            <Text style={styles.co2e}>{formatCO2e(co2e).join(" ")}</Text>
           </View>
         </View>
       </Button>
