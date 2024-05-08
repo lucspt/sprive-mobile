@@ -1,80 +1,51 @@
 import { getItemAsync } from "expo-secure-store"
 import { PixelRatio } from "react-native";
 
-export const PERIODICAL_EMISSIONS_AGG = dateRange => ({
-  query_type: "aggregate",
-  collection: "product_logs",
-  filters: [
-    {$match: {created: {"$gt": pledgeFrequencyToDate(dateRange)}}},
-    {$group: {
-      _id: "$savior_id",
-      co2e: {"$sum": "$co2e"}
-    }},
-    {$project: {_id: 0}}
-  ]
-})
-
-export const pledgeFrequencyToDate = (pledgeFrequency) => {
-  const now = new Date();
-  switch (pledgeFrequency) {
-    case "day": return new Date(now.setHours(0, 0, 0, 0)).toISOString()
-    case "week": return getLastMonday();
-    case "month": return new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
-    case "year": return new Date(now.getFullYear(), 0, 1).toISOString();
-  }
-}
-
-export const getLastMonday = () => {
-  const now = new Date();
-  return new Date(
-    new Date(
-      now.setDate(
-        now.getDate() - (now.getDay() + 6) % 7
-      )
-    ).setHours(0, 0, 0, 0)
-  ).toISOString();
-}
 export const isObjectEmpty = (obj) => {
   for (let k in obj) return false; 
   return true;
 }
 
 const formattingLang = window.navigator.language
-export const formatCO2e = (val, nDecimals=1) => {
-  if (isNaN(val)) return [ 0, "kg" ];
-  const kgsInTon = 907.18474;
-  const formatVal = (val, nDigits=nDecimals) => Intl.NumberFormat(
-    formattingLang, {maximumFractionDigits: nDigits}
-  ).format(val);
-  if (val > kgsInTon) {
-    const megatonsInTon = 1000000;
-    const gigatonsInTon = 1102311310.9244;
-    const metrics = [
-      {metric: "t", val: kgsInTon},
-      {metric: "Mt", val: megatonsInTon},
-      {metric: "Gt", val: gigatonsInTon}
-    ];
-    let result = metrics[0];
-    while (((val / result.val) >= 1) && metrics.length > 1) {
-      const next = metrics[1];
-      if (val / next.val >= 1) {
-        metrics.shift();
-        result = next;
-        continue;
-      } else break;
-    }
-    return [ formatVal(val / result.val, Math.max(1, nDecimals)), result.metric ];
-  } else return [ formatVal(val, nDecimals), "kg" ];
+export const kgsInTon = 907.18474;
+export const kgsInMt = 1000000000;
+export const kgsInGt = 1000000000000;
+
+export const formatCO2e = (co2e, maximumFractionDigits=3) => {
+  if (isNaN(co2e)) return [ 0, "kg" ];
+  const metrics = [
+    {metric: "t", scaleBy: kgsInTon},
+    {metric: "Mt", scaleBy: kgsInMt},
+    {metric: "Gt", scaleBy: kgsInGt}
+  ];
+
+  let resultVal = co2e,
+  resultMetric = "kg";
+
+  for(let i = 0; i < 3; i++) {
+    const { metric, scaleBy } = metrics[i];
+    const scaled = co2e / scaleBy;
+    if (scaled >= 1) {
+      resultVal = scaled;
+      resultMetric = metric;
+    } else break;
+  };
+
+  const formattedVal = Intl.NumberFormat(
+    "default", { maximumFractionDigits }
+  ).format(resultVal);
+  return [ formattedVal, resultMetric ];
 };
 
+const ratingsText = {
+  "A": "great",
+  "B": "good",
+  "C": "poor",
+  "D": "bad",
+  "F": "bad"
+}
 export const getRatingText = (rating) => {
-  return {
-    "A": "great",
-    "B": "good",
-    "C": "poor",
-    "D": "bad",
-    "F": "bad"
-  }[rating]
+  return ratingsText[rating]
 }
 
 export const getCookie = key => {
@@ -109,7 +80,7 @@ export const fetchData = async (
       if (!isObjectEmpty(body)) {
         options.body = JSON.stringify(body);
       };
-      let response = await fetch(`http://192.168.1.18:8000/${endpoint}`, options);
+      let response = await fetch(`http://192.168.1.74:8000/${endpoint}`, options);
       if (response.status === statusCodeCheck) {
         return onStatusCodeMatch();
       } else if (response.ok) {
@@ -117,14 +88,14 @@ export const fetchData = async (
         if (setState) {
           setState(response.content);
         } else return response;
-      } else return response;
+      } 
   }
     catch (e) {
       throw new Error(`That did not work ${e.message || e}`);
   }
 }
 
-export const emailRegex = RegExp("[a-z0-9]+@[a-z]+\.[a-z]{2,3}");
+export const emailRegex = RegExp("/^\S+@\S+\.\S+$/");
 
 const SCALE_BASIS = 393 // iphone 15
 export const scaleFont = (screenWidth, desiredSize) => {

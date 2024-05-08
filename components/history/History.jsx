@@ -32,9 +32,9 @@ const History = memo(function History({ navigation }) {
     );
     const { content } = res;
     if (isPullRefresh) {
-      setHistory(content.history)
+      setHistory(content.logs)
     } else {
-      setHistory(prev => (prev || []).concat(content.history));
+      setHistory(prev => (prev || []).concat(content.logs));
     }
     setKeepFetchingPages(content.has_more);
     setRefreshing(false);

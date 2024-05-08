@@ -23,7 +23,6 @@ const chartConfig = {
 
 export default function BarChart({ data, labels }) {
   const width = useWindowDimensions.width();
-  console.log(data, labels)
   return  (
     <View style={{ height: 200 }}>
       <_BarChart

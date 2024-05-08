@@ -1,7 +1,7 @@
-import { Modal, Platform, Pressable, StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import Button from "../Button";
 import { fetchData } from "../../utils";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { SaviorContext } from "../../contexts/SaviorContext";
 import css from "../../styles";
 import Text from "../Text";
@@ -14,7 +14,6 @@ export default function SaviorDeactivator({ navigate, containerStyle={}, ...prop
   const { setSavior, savior } = useContext(SaviorContext);
 
   const onPress = async () => {
-    console.log("pressed");
     if (modalVisible) {
       await fetchData("saviors/sprivers", "DELETE");
       setSavior(prev => ({...prev, spriving: false}))

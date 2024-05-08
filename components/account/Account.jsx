@@ -10,7 +10,7 @@ import LogoutButton from "./LogoutButton";
 
 export default function Account({ navigation }) {
 
-  const { logout, savior } = useContext(SaviorContext);
+  const { savior } = useContext(SaviorContext);
 
   const { navigate } = navigation
   

@@ -15,7 +15,7 @@ import Animated, {
 import Text from "../Text";
 import Skeleton from "../products/Skeleton";
 
-const endpoint = "http://192.168.1.18:8000/products";
+const endpoint = "http://192.168.1.74:8000/products";
 const PRODUCTS_PER_PAGE = 15
 export default function Search({ navigation }) {
   const [ focused, setFocused ] = useState(false);
@@ -33,7 +33,7 @@ export default function Search({ navigation }) {
 
   const getProducts = async (search, skip=PRODUCTS_PER_PAGE * page) => {
     const productsEndpoint = search 
-    ? `${endpoint}?activity=${search}?limit=${PRODUCTS_PER_PAGE}&skip=${skip}`
+    ? `${endpoint}?q=${search}?limit=${PRODUCTS_PER_PAGE}&skip=${skip}`
     : endpoint;
     let res = await fetch(productsEndpoint);
     res = await res.json();

@@ -17,7 +17,7 @@ const storeInfo = async (savior, token, setSavior, creation=false) => {
   setSavior(savior);
 }
 
-const server = "http://192.168.1.18:8000"
+const server = "http://192.168.1.74:8000"
 export default function SaviorContextProvider({ children }) {
   const [ savior, setSavior ] = useState(null);
   
@@ -63,7 +63,7 @@ export default function SaviorContextProvider({ children }) {
     if (res.ok) {
       const { token, ..._savior } = json.content;
       storeInfo(_savior, token, setSavior, true);
-    } setError(json.content);
+    } else setError(json.content);
   }, []);
 
   const logout = useCallback(async () => {
@@ -92,7 +92,8 @@ export default function SaviorContextProvider({ children }) {
     setSavior,
   }), [savior, isLoggedIn]);
 
-  return savior !== null && (
+  if (savior === null) return;
+  return (
     <SaviorContext.Provider value={context}>
       { children }
     </SaviorContext.Provider>

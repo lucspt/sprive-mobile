@@ -52,8 +52,13 @@ export default function Star({
     if (!canStar) return;
     if (isLoggedIn) {
       let res = isLiked
-      ? await fetchData(`saviors/stars/${productId}`, "DELETE")
-      : await fetchData(`saviors/stars/${productId}`, "POST", productInfo);
+        ? await fetchData(
+          `saviors/stars/${productId}`, "DELETE"
+        )
+        : await fetchData(
+          `saviors/stars/${productId}`, "POST", productInfo
+        );
+        console.log(res)
         // isLiked 
         //   ? setStarInc(prev => prev - 1)
         //   : setStarInc(prev => prev + 1)

@@ -33,7 +33,7 @@ export default function Pledge({ navigation }) {
       } else if (!pledge.co2e) {
         co2eRef.current.focus();
       } else {
-        const res = await fetchData("saviors/pledges", isAnUpdate ? "PUT" : "POST", {
+        await fetchData("saviors/current-pledge", isAnUpdate ? "PUT" : "POST", {
           ...pledge,
           co2e: Number(pledge.co2e)
         });

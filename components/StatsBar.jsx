@@ -2,7 +2,7 @@ import { memo, useContext, useEffect } from "react";
 import { StyleSheet, View, useWindowDimensions } from "react-native";
 import css from "../styles";
 import Text from "./Text";
-import { formatCO2e, getLastMonday } from "../utils";
+import { formatCO2e } from "../utils";
 import { FontAwesome } from '@expo/vector-icons';
 import { BorderlessButton, Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, { 

@@ -20,7 +20,9 @@ async function getStars(
   setKeepFetchingPages=() => null
 ) {
   setRefreshing(true);
-  const res = await fetchData(`saviors/stars?limit=${RESULTS_PER_PAGE}&skip=${skip}`);
+  const res = await fetchData(
+    `saviors/stars?limit=${RESULTS_PER_PAGE}&skip=${skip}`
+  );
   const { content } = res;
   setState(content.starred);
   setKeepFetchingPages(content.has_more);
@@ -80,7 +82,7 @@ const Starred = memo(function Starred({ navigation }) {
       {
         isLoggedIn !== false 
           ? 
-          ( starredProducts !== null && (
+          ( starredProducts?.length > 0 ? (
               <ProductsList
                 reactRef={scrollRef}
                 products={starredProducts} 
@@ -97,6 +99,13 @@ const Starred = memo(function Starred({ navigation }) {
                 onEndReached={() => setPage(prev => prev + 1)}
                 onRefresh={() => getStars(setStarredProducts, 0, setPullRefreshing)}
                 navigate={navigation.navigate}
+              />
+            ) : (
+              <NoData 
+                titleText="No products starred"
+                buttonText="view products"
+                style={{ height: "100%", }}
+                onPress={() => navigation.navigate("search")}
               />
             )
         ) : <SuggestLoginButton navigate={navigation.navigate}/>

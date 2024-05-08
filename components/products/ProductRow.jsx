@@ -3,12 +3,11 @@ import { Image } from "expo-image";
 import Text from "../Text";
 import Rating from "../Rating";
 import { formatCO2e } from "../../utils";
-import { memo, useEffect, useMemo } from "react";
+import { memo } from "react";
 import { Entypo } from "@expo/vector-icons"
 import css from "../../styles";
 import Button from "../Button"; 
 import { getTimeElapsed } from "../../utils";
-// milliseconds in time periods
 
 const ProductRow = memo(function ProductRow({ 
   productId, 
@@ -18,7 +17,7 @@ const ProductRow = memo(function ProductRow({
   rating, 
   navigate,
   containerStyle,
-  created=null,
+  created_at=null,
  }) {
 
   const _co2e = formatCO2e(co2e).join(" ");
@@ -42,7 +41,14 @@ const ProductRow = memo(function ProductRow({
           </View>
           <View style={styles.emissions}>
             <View style={styles.rating}>
-              {created && <Text style={styles.date} numberOfLines={1}>{getTimeElapsed(created)}</Text>}
+              {created_at && (
+                <Text 
+                  style={styles.date} 
+                  numberOfLines={1}
+                >
+                  {getTimeElapsed(created_at)}
+                </Text>
+            )}
             <Rating rating={rating || "B"} />
             </View>
             <Text style={styles.co2e}>{_co2e}</Text>

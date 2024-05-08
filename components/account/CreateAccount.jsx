@@ -1,12 +1,11 @@
 import { StyleSheet, View } from "react-native";
-import Login from "./Login";
 import Button from "../Button";
 import { Feather } from '@expo/vector-icons';
 import css from "../../styles";
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import LoginForm from "./LoginForm";
 import TextInput from "../TextInput";
-import { emailRegex, fetchData } from "../../utils";
+import { emailRegex } from "../../utils";
 import Text from "../Text";
 import { SaviorContext } from "../../contexts/SaviorContext";
 import IconButton from "../IconButton";
@@ -23,7 +22,7 @@ export default function CreateAcount({ navigation }) {
   const { createSavior } = useContext(SaviorContext);
   const [ emailInUse, setEmailInUse ] = useState(false);
   const emailRef = useRef();
-  const [ canContinue, setCanContinue ] = useState(false);
+  const [ canContinue, setCanContinue ] = useState(true);
   
   const updateEmail = text => {
     setCanContinue(true)
@@ -31,7 +30,7 @@ export default function CreateAcount({ navigation }) {
   }
 
   const toStepTwo = async () => {
-    let emailOk = await fetch(`http://192.168.1.18:8000/users/emails/${user.email}`, )
+    let emailOk = await fetch(`http://192.168.1.74:8000/users/emails/${user.email}`, )
     emailOk = await emailOk.json();
     ({ content: emailOk } = emailOk);
     if (emailOk?.is_available) {

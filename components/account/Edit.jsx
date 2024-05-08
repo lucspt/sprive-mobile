@@ -1,14 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import { Entypo } from '@expo/vector-icons';
 import css from "../../styles";
-import Button from "../Button";
-import TextInput from "../TextInput";
-import { useState, useMemo } from "react";
-import { useContext } from "react";
-import { SaviorContext } from "../../contexts/SaviorContext";
-import Text from "../Text";
-import { fetchData } from "../../utils";
-import { useThemeMode } from "@rneui/themed";
 import EditEmail from "./EditEmail";
 import EditUsername from "./EditUsername";
 

@@ -28,7 +28,7 @@ const ProductsList = function ProductsList({
         image={item.image} 
         rating={item.rating || "B"}
         co2e={item.co2e}
-        created={item.created}
+        created_at={item.created_at}
       />
     )  
   } else {

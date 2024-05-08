@@ -13,7 +13,6 @@ import ActionsBar from "./actions/ActionsBar";
 import { Image } from "expo-image";
 import StatsBar from "../StatsBar";
 import Animated, { useAnimatedRef } from "react-native-reanimated";
-import { useMemo } from "react";
 import IconButton from "../IconButton";
 import { fetchData, formatCO2e } from "../../utils";
 import { SaviorContext } from "../../contexts/SaviorContext";
@@ -32,7 +31,7 @@ const STATS_BAR_HEIGHT = 80;
 const PADDING_BOTTOM = STATS_BAR_HEIGHT + 15;
 
 async function getProduct(productId, setProduct) {
-  const endpoint = `http://192.168.1.18:8000/products/${productId}`;
+  const endpoint = `http://192.168.1.74:8000/products/${productId}`;
   let res = await fetch(endpoint);
   res = await res.json();
   const { content } = res

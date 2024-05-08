@@ -1,7 +1,7 @@
-import { ScrollView, StyleSheet, View, useWindowDimensions } from "react-native";
-import { Profiler, memo, useContext, useEffect, useRef, useState } from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { memo, useContext, useEffect, useRef, useState } from "react";
 import { SaviorContext } from "../../contexts/SaviorContext";
-import { fetchData, PERIODICAL_EMISSIONS_AGG } from "../../utils";
+import { fetchData } from "../../utils";
 import css from "../../styles";
 import Text from "../Text";
 import BarChart from "./BarChart";
@@ -13,25 +13,13 @@ import Widgets from "./Widgets";
 import RecentLogs from "./RecentLogs";
 import CurrentPledge from "./CurrentPledge";
 import { StatsBarContext } from "../../contexts/StatsBarContext";
-import { SafeAreaView } from "react-native-safe-area-context";
-
-const TOTAL_EMISSIONS_AGG = {
-  query_type: "aggregate",
-  collection: "product_logs",
-  filters: [
-    {$group: {
-        _id: "$savior_id",
-        co2e: {"$sum": "$co2e"}
-    }}
-  ]
-}
 
 async function getAndFormatStats(getStatsFunc) {
   const res = await getStatsFunc();
   return res[0];
 }
 
-const Home =  memo(function Home({ navigation }) { 
+const Home = memo(function Home({ navigation }) { 
   const { isLoggedIn, savior, } = useContext(SaviorContext);
   const { getCurrentStats, stats } = useContext(StatsBarContext);
   const scrollRef = useRef();
@@ -52,7 +40,7 @@ const Home =  memo(function Home({ navigation }) {
   const greeting = (
     hours < 12 ? "Good Morning" : hours < 18 ? "Good Afternoon" : "Good Evening"
   ).concat(
-    savior?.spriving ? ", savior" : savior?.username ? `, ${savior.username}` : ""
+    savior?.username ? `, ${savior.username}` : ""
   );
 
   const getData = async (setRefreshing=() => null) => {
@@ -63,15 +51,28 @@ const Home =  memo(function Home({ navigation }) {
         getAndFormatStats(getCurrentStats),
       ]) 
       let [ _emissions ] = res;
-      ({ content, content: { history: _emissions } } = _emissions);
+      ({ content, content: { logs: _emissions } } = _emissions);
       const recentLogs = _emissions.slice(0, 4);
       if (_emissions?.length > 0) {
         const co2eByDay = {};
-        _emissions.map(({ created, co2e }) => {
-          const day = new Date(`${created}Z`).toString().slice(0, 10)
+        const today = new Date();
+        const lastWeek = new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          today.getDate() - 7,
+        );
+        _emissions.map(({ created_at, co2e }) => {
+          let day = new Date(`${created_at}Z`);
+          if (day < lastWeek) {
+            // if it's been over a week we'll display a date such as 3/10 instead of something like Sun;
+            day = day.toLocaleDateString("default", { month: "numeric", day: "numeric" });
+          } else {
+            // we can't just slice 0, 3, which will give us a day abbreviation like Mon, 
+            // because there can be duplicate days, so we handle labels later with Object.keys.map
+            day = `${day.toString().slice(0, 10)}`;
+          }
           co2eByDay[day] = (co2eByDay[day] || 0) + co2e
         });
-
         const co2eValues = Object.values(co2eByDay)
         setEmissions({
           averageCO2e: co2eValues.reduce(
@@ -80,7 +81,11 @@ const Home =  memo(function Home({ navigation }) {
           data: co2eValues.slice(0, 7).reverse(), 
           labels: (
             Object.keys(co2eByDay)
-            .map(x => x.slice(0, 3))
+            .map(x => {
+              if (x.length === 10) {
+                return x.slice(0, 3);
+              } else return x;
+            })
             .slice(0, 7)
             .reverse()
           )
@@ -110,7 +115,8 @@ const Home =  memo(function Home({ navigation }) {
 
   const { data, labels, averageCO2e } = emissions || {};
   const _stats = stats || {};
-  const BAR_CHART_HEIGHT = 200
+  const BAR_CHART_HEIGHT = 200;
+
   return (
     <View style={styles.screen}>
       <ScrollView 
