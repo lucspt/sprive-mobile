@@ -82,6 +82,7 @@ export const fetchData = async (
         options.body = JSON.stringify(body);
       };
       let response = await fetch(`http://192.168.1.74:8000/${endpoint}`, options);
+      if (!response.ok) console.log(response, "HEREEE");
       if (response.status === statusCodeCheck) {
         return onStatusCodeMatch();
       } else if (response.ok) {

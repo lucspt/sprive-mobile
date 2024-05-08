@@ -165,9 +165,9 @@ const Home = memo(function Home({ navigation }) {
               total={_stats.total}
             />
             <CurrentPledge 
-              navigate={navigation.navigate} 
-              currentEmissions={_stats[pledgeFrequency]} 
-              currentPledge={current_pledge}
+            navigate={navigation.navigate} 
+            currentEmissions={_stats[pledgeFrequency]} 
+            currentPledge={current_pledge}
             />
           </View>
           {isLoggedIn !== false && <RecentLogs logs={recentLogs} navigate={navigation.navigate}/>} 
