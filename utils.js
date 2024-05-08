@@ -10,19 +10,20 @@ const formattingLang = window.navigator.language
 export const kgsInTon = 907.18474;
 export const kgsInMt = 1000000000;
 export const kgsInGt = 1000000000000;
+const metrics = [
+  {metric: "t", scaleBy: kgsInTon},
+  {metric: "Mt", scaleBy: kgsInMt},
+  {metric: "Gt", scaleBy: kgsInGt}
+];
+const { length: numMetrics } = metrics;
 
 export const formatCO2e = (co2e, maximumFractionDigits=3) => {
   if (isNaN(co2e)) return [ 0, "kg" ];
-  const metrics = [
-    {metric: "t", scaleBy: kgsInTon},
-    {metric: "Mt", scaleBy: kgsInMt},
-    {metric: "Gt", scaleBy: kgsInGt}
-  ];
 
   let resultVal = co2e,
   resultMetric = "kg";
-
-  for(let i = 0; i < 3; i++) {
+  
+  for(let i = 0; i < numMetrics; i++) {
     const { metric, scaleBy } = metrics[i];
     const scaled = co2e / scaleBy;
     if (scaled >= 1) {
