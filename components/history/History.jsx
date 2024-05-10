@@ -31,10 +31,17 @@ const History = memo(function History({ navigation }) {
       `saviors/logs?limit=${LOGS_PER_PAGE}&skip=${skip}`
     );
     const { content } = res;
+    console.log(history, content.logs);
     if (isPullRefresh) {
       setHistory(content.logs)
     } else {
-      setHistory(prev => (prev || []).concat(content.logs));
+      setHistory(prev => {
+        if (prev) {
+          return [...prev, ...content.logs]
+        } else {
+          return content.logs
+        }
+    });
     }
     setKeepFetchingPages(content.has_more);
     setRefreshing(false);
@@ -49,6 +56,8 @@ const History = memo(function History({ navigation }) {
       if (!isLoggedIn) setHistory(null)
     }
   }, [isLoggedIn, page]);
+
+  console.log(history);
 
 
   return (

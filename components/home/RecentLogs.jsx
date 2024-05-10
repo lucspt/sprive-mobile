@@ -9,6 +9,7 @@ export default function RecentLogs({ logs, navigate }) {
   const { width } = useWindowDimensions();
   const fontSize = scaleFont(width, 14.7);
   const itemWidth = width / 2
+  
   const renderItem = useCallback(({ item }) => (
     <RecentLog
       name={item.name}

@@ -144,7 +144,7 @@ const Product = memo(function Product({ route, navigation }) {
           </View>
           <View style={styles.details}>
             <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-              <Text style={styles.subHeader}>Traceback</Text>
+              <Text style={styles.subHeader}>Breakdown</Text>
               <Text 
                 style={[styles.subHeader, { fontSize: css.mediumFont, alignSelf: "flex-end"}]}
               >
