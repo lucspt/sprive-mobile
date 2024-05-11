@@ -1,6 +1,8 @@
 ### Sprive Mobile
 
-This repository contains a React Native application that allows users to track and record their daily carbon footprint. Users can also create something called a "pledge", which is a goal to reduce their emissions over time!
+This repository contains a React Native application that allows users to track and record their carbon footprint. It gives access to the emissions breakdowns 
+of certain products, allowing users to be aware of the impact of their choices. They can also log the emissions of the products they buy to keep track of their
+footprint. Users can also create something called a "pledge", which is a goal to reduce their CO₂e emissions over time!
 
 Application:
 
@@ -19,6 +21,7 @@ Application:
 
 Built with:
   - React Native 
+  - JavaScript
   - Expo
 
 Built by [Luca Caputo](https://github.com/lucspt)
