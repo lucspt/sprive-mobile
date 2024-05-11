@@ -231,6 +231,8 @@ const styles = StyleSheet.create({
     height: 150,
     width: 150,
     marginTop: 30,
+    resizeMode: "contain",
+    backgroundColor: css.white
   },
 
   subHeader: {

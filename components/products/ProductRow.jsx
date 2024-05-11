@@ -95,8 +95,10 @@ export const styles = StyleSheet.create({
   image: {
     height: 90,
     width: 90,
+    resizeMode: "contain",
     marginLeft: 15,
-    alignSelf: "center",
+    alignSelf: "stretch",
+    backgroundColor: css.white,
   },
 
   chevron: {

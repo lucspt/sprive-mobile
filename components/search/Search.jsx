@@ -107,8 +107,8 @@ export default function Search({ navigation }) {
           scrollEnabled={false}
           entering={FadeIn}
           exiting={FadeOut}
-          style={[contentBg, styles.content]}
-          contentContainerStyle={{ gap: 10 }}
+          style={[contentBg, styles.content, {paddingBottom: 50, flex: 1}]}
+          contentContainerStyle={{ gap: 8,  paddingBottom: 50 }}
           data={skeletons}
           renderItem={renderSkeleton}
         />
@@ -122,7 +122,7 @@ export default function Search({ navigation }) {
         )
         }
         style={[contentBg, styles.content, {display: showSkeletons ? "none" : "flex"}]}
-
+        contentContainerStyle={{ gap: 8,  paddingBottom: 20 }}
         keyboardShouldPersistTaps="handled"
         onEndReached={() => keepRefreshing && setPage(prev => prev + 1)}
         onEndReachedThreshold={0.2}
@@ -140,7 +140,6 @@ export default function Search({ navigation }) {
           />
         }
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ gap: 10 }}
         data={products}
         renderItem={renderItem}
         keyExtractor={(item) => item._id}
@@ -152,7 +151,8 @@ export default function Search({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
+    height: "100%",
     paddingHorizontal: 0,
   },
 

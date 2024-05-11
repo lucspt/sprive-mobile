@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
 
   buttonWrapper: {
     alignItems: "center",
-    marginTop: 60
+    // marginTop: 60
   },
 
   button: {
