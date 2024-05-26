@@ -1,4 +1,4 @@
-### Sprive Mobile
+# Sprive Mobile
 
 This repository contains a React Native application that allows users to track and record their carbon footprint. It gives access to the emissions breakdowns 
 of certain products, allowing users to be aware of the impact of their choices. They can also log the emissions of the products they buy to keep track of their
