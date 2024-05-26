@@ -4,7 +4,7 @@ This repository contains a React Native application that allows users to track a
 of certain products, allowing users to be aware of the impact of their choices. They can also log the emissions of the products they buy to keep track of their
 footprint. Users can also create something called a "pledge", which is a goal to reduce their CO₂e emissions over time!
 
-Application:
+## Screenshots:
 
 <div>
   <img width="auto" height="320" margin="30px 60px" alt="Sprive mobile home screen" src="https://github.com/lucspt/sprive-mobile/assets/149544385/240c31dc-a948-45a7-ae4a-e5c01e1f1e94">
