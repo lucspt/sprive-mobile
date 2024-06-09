@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, View, useAnimatedValue } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Image } from "expo-image";
 import Text from "../Text";
 import Rating from "../Rating";

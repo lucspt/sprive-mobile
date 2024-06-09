@@ -58,8 +58,9 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    height: 110,
-    width: 110,
+    flex: 1,
+    resizeMode: "contain",
+    aspectRatio: 1,
   },
 
   emissions: {

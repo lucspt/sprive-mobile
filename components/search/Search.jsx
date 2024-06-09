@@ -15,7 +15,7 @@ import Animated, {
 import Text from "../Text";
 import Skeleton from "../products/Skeleton";
 
-const endpoint = "http://192.168.1.74:8000/products";
+const endpoint = `${process.env.EXPO_PUBLIC_API_URL}/products`;
 const PRODUCTS_PER_PAGE = 15
 export default function Search({ navigation }) {
   const [ focused, setFocused ] = useState(false);

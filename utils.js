@@ -81,7 +81,7 @@ export const fetchData = async (
       if (!isObjectEmpty(body)) {
         options.body = JSON.stringify(body);
       };
-      let response = await fetch(`http://192.168.1.74:8000/${endpoint}`, options);
+      let response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/${endpoint}`, options);
       if (response.status === statusCodeCheck) {
         return onStatusCodeMatch();
       } else if (response.ok) {

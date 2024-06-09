@@ -41,7 +41,6 @@ export default function StatsBarContextProvider({ children }) {
       "day": 0, "week": 0, "month": 0, "year": 0
     };
     let totalEmissions = 0;
-    console.clear();
     const periodLabels = Object.keys(_stats);
     const { length: numLabels } = periodLabels;
     res.content.logs.map(({ created_at, co2e, }) => {
@@ -57,7 +56,6 @@ export default function StatsBarContextProvider({ children }) {
     });
 
     _stats.total = totalEmissions;
-    console.log(_stats);
     setStats(_stats);
     return _stats;
   });

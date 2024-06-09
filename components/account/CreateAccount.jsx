@@ -30,7 +30,7 @@ export default function CreateAcount({ navigation }) {
   }
 
   const toStepTwo = async () => {
-    let emailOk = await fetch(`http://192.168.1.74:8000/users/emails/${user.email}`, )
+    let emailOk = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/users/emails/${user.email}`, )
     emailOk = await emailOk.json();
     ({ content: emailOk } = emailOk);
     if (emailOk?.is_available) {

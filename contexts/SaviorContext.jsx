@@ -17,7 +17,7 @@ const storeInfo = async (savior, token, setSavior, creation=false) => {
   setSavior(savior);
 }
 
-const server = "http://192.168.1.74:8000"
+const server = process.env.EXPO_PUBLIC_API_URL;
 export default function SaviorContextProvider({ children }) {
   const [ savior, setSavior ] = useState(null);
   

@@ -31,7 +31,7 @@ const STATS_BAR_HEIGHT = 80;
 const PADDING_BOTTOM = STATS_BAR_HEIGHT + 15;
 
 async function getProduct(productId, setProduct) {
-  const endpoint = `http://192.168.1.74:8000/products/${productId}`;
+  const endpoint = `${process.env.EXPO_PUBLIC_API_URL}/products/${productId}`;
   let res = await fetch(endpoint);
   res = await res.json();
   const { content } = res
