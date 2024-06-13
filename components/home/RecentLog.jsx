@@ -28,6 +28,7 @@ export default function RecentLog({
         source={image}
         style={styles.image}
         alt={`a picture of ${name}`}
+        contentFit="contain"
       />
       <View style={styles.bottom}>
         <Text 
