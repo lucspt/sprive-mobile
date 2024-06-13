@@ -136,7 +136,7 @@ const Product = memo(function Product({ route, navigation }) {
         >
           <View style={styles.summary}>
             <Image
-
+              contentFit="contain"
               source={product.image}
               style={styles.image}
               alt={`a picture of ${product.name}`}
@@ -231,7 +231,6 @@ const styles = StyleSheet.create({
     height: 150,
     width: 150,
     marginTop: 30,
-    resizeMode: "contain",
     backgroundColor: css.white
   },
 

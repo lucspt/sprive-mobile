@@ -31,6 +31,7 @@ const ProductRow = memo(function ProductRow({
           source={image}
           style={styles.image}
           alt={`a picture of ${name}`}
+          contentFit="contain"
         />
         <View style={styles.details}>
           <Text style={styles.name} numberOfLines={1}>{name}</Text>
@@ -95,7 +96,6 @@ export const styles = StyleSheet.create({
   image: {
     height: 90,
     width: 90,
-    resizeMode: "contain",
     marginLeft: 15,
     alignSelf: "stretch",
     backgroundColor: css.white,
