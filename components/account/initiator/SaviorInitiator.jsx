@@ -4,13 +4,12 @@ import Button from "../../Button";
 import Text from "../../Text";
 import Feature from "../Feature";
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-import Animated, { Easing, FadeIn, FadeInDown, SlideInDown, SlideInLeft, SlideInRight, StretchInX } from "react-native-reanimated";
+import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 import IconButton from "../../IconButton";
 import { useContext, useEffect, useRef } from "react";
 import { SaviorContext } from "../../../contexts/SaviorContext";
 import { fetchData } from "../../../utils";
 import { ScrollView } from "react-native-gesture-handler";
-import { useIsFocused } from "@react-navigation/native";
 import { Entypo } from "@expo/vector-icons";
 
 const { secondary } = css
@@ -97,7 +96,7 @@ export default function SaviorInitiator({ navigation, isModal }) {
           </View>
             <Animated.View 
               entering={ButtonEnter} 
-              style={styles.buttonWrapper}
+              style={[styles.buttonWrapper, {marginTop: isModal ? 60 : 0}]}
             >
               <Button
                 text="Become a Spriver"
@@ -171,7 +170,6 @@ const styles = StyleSheet.create({
 
   buttonWrapper: {
     alignItems: "center",
-    // marginTop: 60
   },
 
   button: {
